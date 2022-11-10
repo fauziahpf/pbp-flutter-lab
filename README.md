@@ -1,10 +1,8 @@
-# Tugas 7 : Elemen Utama Flutter
+# Tugas 7 : Elemen Dasar Flutter
 
 Fauziah Putri Fajrianti - 2106707435 - EZ
 
 Kelas PBP A
-
-
 <br>
 
 ## 1. Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget dan jelaskan perbedaan dari keduanya.
