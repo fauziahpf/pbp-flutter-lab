@@ -38,11 +38,9 @@ setState() berfungsi menginformasikan Flutter atas perubahan dari state. Flutter
 ## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
 1. Membuat sebuah program Flutter baru dengan nama counter_7 dengan menjalankan perintah
 `flutter create counter_7`
-<br>
 
 2. Mengubah text title dari aplikasi menjadi Program Counter dengan menuliskan kode
 `home: const MyHomePage(title: 'Program Counter'),` dalam fungsi build.
-<br>
 
 3. Membuat fungsi untuk melakukan decrement pada counter:
     ```
@@ -52,8 +50,6 @@ setState() berfungsi menginformasikan Flutter atas perubahan dari state. Flutter
         });
     }
     ```
-
-<br>
 
 4. Menambahkan kode di bawah ini (sebagai children dari Column) untuk mengubah text beserta stylingnya jika nilai counter adalah ganjil atau genap.
     ```
@@ -68,7 +64,6 @@ setState() berfungsi menginformasikan Flutter atas perubahan dari state. Flutter
                     style: TextStyle(color: Colors.red))
                 ),
     ```
-<br>
 
 5. Menambahkan kode di bawah ini (dalam body) untuk membuat FloatingActionButton yang memicu increment dan decrement dari counter.
     ```
@@ -108,7 +103,6 @@ setState() berfungsi menginformasikan Flutter atas perubahan dari state. Flutter
     - Membuat widget Padding (untuk memberi padding sebesar 20.0) dengan child berupa Row dengan alignment spaceAround pada main axis.
     - Membuat children dalam Row berupa dua widget Expanded. Widget Expanded yang pertama berfungsi untuk membuat FloatingActionButton untuk decrement counter dengan alignment bottom left. Button ini akan muncul jika nilai _counter > 0, sedangkan widget Expanded yang kedua berfungsi untuk membuat FloatingActionButton untuk increment counter dengan alignment bottom right.
 
-<br>
 
 ## Getting Started
 
