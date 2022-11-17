@@ -92,7 +92,7 @@ Navigator bekerja mirip dengan implementasi stack. Halaman yang sedang dilihat o
         Budget(String this.judulBudget, int this.nominalBudget, String this.jenisBudget);
     }
     ```
-4. Membuat validator untuk memeriksa apakah text field numerik untuk input nominal.
+4. Membuat validator untuk memeriksa apakah text field numerik untuk input nominal budget.
 5. Membuat form dalam halaman Form Budget dengan menambahkan widget-widget seperti seperti TextFormField, DropdownButtonFormField, TextButton, dan lain-lain seperti yang sudah dijelaskan pada soal nomor 2. Sebagai contoh, berikut untuk kode yang membuat input Judul Budget:
     ```
     TextFormField(
@@ -128,7 +128,7 @@ Navigator bekerja mirip dengan implementasi stack. Halaman yang sedang dilihat o
         ),
     ```
 
-6. Menambahkan data-data dari budget melalui listview builder:
+6. Menambahkan data-data dari budget melalui ListView Builder:
     ```
     ListView.builder(
           itemCount: Budget.listBudget.length,
