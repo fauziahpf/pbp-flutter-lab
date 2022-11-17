@@ -1,3 +1,189 @@
+Fauziah Putri Fajrianti - 2106707435 - EZ
+
+Kelas PBP A
+<br>
+
+# Tugas 8 : Flutter Form
+
+## 1. Jelaskan perbedaan Navigator.push dan Navigator.pushReplacement.
+- `Navigator.push`, akan menggantikan halaman pada top of stack dengan halaman baru. Dapat menggunakan tombol back karena memiliki halaman sebelumnya yang dapat diakses oleh navigator dengan `pop`.
+
+- `Navigator.pushReplacement`, akan menimpa (seperti stack) halaman pada top of stack dengan halaman baru.
+
+## 2. Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+- `Drawer` berfungsi sebagai menu drawer untuk pindah ke tampilan atau page lain
+- `TextFormField` berfungsi untuk ask input text
+- `Form` -> Membuat sebuah container untuk dijadikan parent dari input input yang dideklarasikan
+- `ListTile` -> component yang didalamnya juga bisa digunakan widget
+- `Padding` berfungsi untuk menampilkan child-nya dengan padding tertentu. 
+- `Row` berfungsi untuk  menampilkan child-nya ke tata letak yang horizontal. 
+- `Column` berfungsi untuk  menampilkan child-nya ke tata letak yang vertikal. 
+- `DropdownButtonTextField` berfungsi untuk membuat form field untuk user memilih input
+- `Text` berfungsi untuk menampilkan text
+- `TextStyle` berfungsi untuk melakukan styling terhadap text
+- `Container` berfungsi sebagai tempat untuk menampung komponen
+- `TextButton` berfungsi untuk membuat tombol dengan text tertentu
+
+## 3. Sebutkan jenis-jenis event yang ada pada Flutter (contoh: onPressed).
+- `onChanged`, event yang trigger saat widget mengalami perubahan, seperti saat text ditulis oleh user
+- `onPressed`, event yang muncul saat button ditekan oleh user
+- `onSaved`, event yang muncul saat form telah disimpan
+- `onTap`, event yang muncul saat widget dipencet oleh user
+
+## 4. Jelaskan bagaimana cara kerja Navigator dalam "mengganti" halaman dari aplikasi Flutter.
+Navigator bekerja mirip dengan implementasi stack. Halaman yang sedang dilihat oleh user berada pada bagian stack paling atas.
+
+- `push` untuk membuat halaman baru menjadi top of stack dan halaman lama bukan top of stack lagi
+
+- `pop` untuk mengganti halaman ke halaman sebelumnya
+
+- `pushReplacement` untuk menggantikan halaman pada top of stack dengan halaman baru yang kemudian akan menjadi top of stack.
+
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+1. Menambahkan file form.dart untuk page Form Budget dan file show.dart untuk page Data Budget
+2. Menambahkan drawer dalam build pada main.dart, form.dart, dan show.dart, yang berfungsi untuk navigasi  ke page lainnya.
+    ```
+    drawer: Drawer(
+        child: Column(
+            children: [
+              // Menambahkan clickable menu
+              ListTile(
+                title: const Text('counter_7'),
+                onTap: () {
+                  // Route menu ke halaman utama
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyHomePage()),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Tambah Budget'),
+                onTap: () {
+                  // Route menu ke halaman form
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyFormPage()),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Data Budget'),
+                onTap: () {
+                  // Route menu ke halaman form
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyShowPage()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+    ```
+3. Membuat class Budget yang berisi dengan atribut-atribut dari form budget tersebut dan constructornya.
+    ```
+    class Budget {
+        String judulBudget;
+        int nominalBudget;
+        String jenisBudget;
+        static List<Budget> listBudget = [];
+
+        Budget(String this.judulBudget, int this.nominalBudget, String this.jenisBudget);
+    }
+    ```
+4. Membuat validator untuk memeriksa apakah text field numerik untuk input nominal.
+5. Membuat form dalam halaman Form Budget dengan menambahkan widget-widget seperti seperti TextFormField, DropdownButtonFormField, TextButton, dan lain-lain seperti yang sudah dijelaskan pada soal nomor 2. Sebagai contoh, berikut untuk kode yang membuat input Judul Budget:
+    ```
+    TextFormField(
+        decoration: InputDecoration(
+            hintText: "Judul",
+            labelText: "Judul",
+            // Menambahkan icon agar lebih intuitif
+            icon: const Icon(Icons.assignment_ind),
+            // Menambahkan circular border agar lebih rapi
+            border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            ),
+        ),
+        // Menambahkan behavior saat nama diketik
+        onChanged: (String? value) {
+            setState(() {
+            _judulBudget = value!;
+            });
+        },
+        // Menambahkan behavior saat data disimpan
+        onSaved: (String? value) {
+            setState(() {
+            _judulBudget = value!;
+            });
+        },
+        // Validator sebagai validasi form
+        validator: (String? value) {
+            if (value == null || value.isEmpty) {
+            return 'Judul tidak boleh kosong!';
+            }
+            return null;
+        },
+        ),
+    ```
+
+6. Menambahkan data-data dari budget melalui listview builder:
+    ```
+    ListView.builder(
+          itemCount: Budget.listBudget.length,
+          itemBuilder: (BuildContext build, int index) {
+            return Card(
+              child: Column(children: [
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        Budget.listBudget[index].judulBudget,
+                        style: const TextStyle(fontSize: 20.0),
+                    ),
+
+                  ),
+
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                                Budget.listBudget[index].nominalBudget.toString(),
+                                style: const TextStyle(fontSize: 14.0),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              Budget.listBudget[index].jenisBudget,
+                              style: const TextStyle(fontSize: 14.0),
+                            ),
+                          ),
+                        ),
+
+                  ]),
+                  )
+                )
+              ]),
+            );
+          },
+        ),
+    ```
+
+<br>
+
 # Tugas 7 : Elemen Dasar Flutter
 
 Fauziah Putri Fajrianti - 2106707435 - EZ
