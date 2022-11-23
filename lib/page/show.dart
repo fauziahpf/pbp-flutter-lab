@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:counter_7/form.dart';
+import 'package:counter_7/page/form.dart';
 import 'package:counter_7/main.dart';
+import 'package:counter_7/page/mywatchlist_page.dart';
+import 'package:counter_7/model/mywatchlist.dart';
 
 class MyShowPage extends StatefulWidget {
   const MyShowPage({super.key});
@@ -47,6 +49,16 @@ class _MyShowPageState extends State<MyShowPage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyShowPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('My Watchlist'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyWatchlistPage()),
                 );
               },
             ),

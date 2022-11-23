@@ -1,6 +1,9 @@
 import 'package:counter_7/main.dart';
 import 'package:flutter/material.dart';
-import 'package:counter_7/show.dart';
+import 'package:counter_7/page/show.dart';
+import 'package:counter_7/page/mywatchlist_page.dart';
+import 'package:counter_7/model/mywatchlist.dart';
+
 RegExp _numeric = RegExp(r'^-?[0-9]+$');
 
 
@@ -36,6 +39,8 @@ class _MyFormPageState extends State<MyFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
         title: Text('Form Budget'),
       ),
       drawer: Drawer(
@@ -69,6 +74,16 @@ class _MyFormPageState extends State<MyFormPage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyShowPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('My Watchlist'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyWatchlistPage()),
                 );
               },
             ),
