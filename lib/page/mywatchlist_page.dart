@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:counter_7/page/show.dart';
 import 'package:counter_7/page/form.dart';
 import 'package:counter_7/model/mywatchlist.dart';
+import 'package:counter_7/fetch/fetch_watchlist.dart';
 
 class MyWatchlistPage extends StatefulWidget {
   const MyWatchlistPage({Key? key}) : super(key: key);
@@ -15,29 +16,7 @@ class MyWatchlistPage extends StatefulWidget {
 }
 
 class _MyWatchlistPageState extends State<MyWatchlistPage> {
-  Future<List<MyWatchlist>> fetchToDo() async {
-    var url = Uri.parse('http://tugas-2-sissy.herokuapp.com/mywatchlist/json/');
-    var response = await http.get(
-      url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    );
-
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object ToDo
-    List<MyWatchlist> listToDo = [];
-    for (var d in data) {
-      if (d != null) {
-        listToDo.add(MyWatchlist.fromJson(d));
-      }
-    }
-
-    return listToDo;
-  }
+  final Future<List<MyWatchlist>> futureFetch = fetchWatchlist();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +75,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
         ),
       ),
         body: FutureBuilder(
-            future: fetchToDo(),
+            future: futureFetch,
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
@@ -110,8 +89,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                             color: Color(0xff59A5D8),
                             fontSize: 20),
                       ),
-                      SizedBox(height: 8),
-
+                      // SizedBox(height: 3),
                     ],
                   );
                 } else {
@@ -126,8 +104,8 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                                       models: snapshot.data![index].fields)));
                         },
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
+                            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            padding: const EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
                                 color:Colors.white,
                                 border: Border.all(
@@ -142,18 +120,10 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                                   )
                                 ]
                             ),
-                            child: Column(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "${snapshot.data![index].fields.title}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
                                 Checkbox(
                                   value: snapshot.data![index].fields.watched == Watched.DONE ? true : false,
                                   onChanged: (bool? value) {
@@ -164,8 +134,14 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                                         snapshot.data![index].fields.watched = Watched.NOT_YET;
                                     });
                                   },
-                                )
-
+                                ),
+                                Text(
+                                  "${snapshot.data![index].fields.title}",
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 // Text("${snapshot.data![index].fields.watched}"),
                               ],
                             ),

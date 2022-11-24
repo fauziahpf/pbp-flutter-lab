@@ -70,11 +70,13 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
       body: Center(
-        child: Column(
+        child : Padding(
+          padding: EdgeInsets.all(15.00),
+          child: Column(
           children: [
             Text(
               models.title,
-              // style: TextStyle(color: Colors.blue),
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
               'Release Date: ${DateFormat.yMMMd().format(models.releaseDate)}',
@@ -117,6 +119,8 @@ class _DetailPageState extends State<DetailPage> {
                 )),
           ],
         ),
+        )
+
       ),
     );
   }
